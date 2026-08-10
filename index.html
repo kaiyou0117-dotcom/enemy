@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>敵性霊体(エネミー)探究会 ｜ Enemy Field Research Society</title>
+<meta name="description" content="この街に日常的に現れる敵性霊体(エネミー)の目撃・討伐・観察記録を集める非公式ファンアーカイブ。海外掲示板発祥の観測コミュニティを参考に、有志が運営しています。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23A5312A' stroke-width='6'/%3E%3Ccircle cx='50' cy='50' r='14' fill='%23A5312A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Serif+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  /* ============ トークン ============ */
+  :root{
+    --bg-ink:      #131417;
+    --bg-panel:    #1a1c20;
+    --bg-panel-2:  #1f2226;
+    --line:        rgba(255,255,255,0.09);
+    --line-soft:   rgba(255,255,255,0.05);
+
+    --paper:       #e9e3d1;
+    --paper-shade: #d9d1b6;
+    --ink:         #24211a;
+    --ink-soft:    #524c3d;
+
+    --stamp-red:   #a5312a;
+    --stamp-red-2: #7f241f;
+    --board-amber: #d6a23c;
+    --board-amber-soft: #a9812f;
+
+    --badge-caution:  #d6a23c;
+    --badge-monitor:  #8fa888;
+    --badge-classified: #a5312a;
+    --badge-safe:     #6e9c93;
+
+    --serif-jp: "Noto Serif JP", serif;
+    --mincho:   "Shippori Mincho", serif;
+    --mono:     "JetBrains Mono", monospace;
+
+    --maxw: 1180px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg-ink);
+    color:#cfcabb;
+    font-family:var(--serif-jp);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  ::selection{ background:var(--stamp-red); color:#fff; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+
+  /* subtle grain used on ink background */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:1;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* paper texture, used inside report cards */
+  .paper-tex{
+    position:absolute; inset:0; pointer-events:none;
+    opacity:.5; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
+  }
+
+  /* ============ ヘッダー ============ */
+  .site-header{
+    position:sticky; top:0; z-index:40;
+    background:rgba(19,20,23,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .site-header .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px; gap:24px;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .brand-seal{ width:28px; height:28px; flex:none; }
+  .brand-text{ display:flex; flex-direction:column; line-height:1.15; }
+  .brand-jp{ font-family:var(--mincho); font-weight:700; font-size:16px; color:#f1ede0; letter-spacing:.02em; }
+  .brand-en{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--board-amber); text-transform:uppercase; margin-top:2px; }
+
+  .site-nav{ display:flex; align-items:center; gap:26px; }
+  .site-nav a{
+    font-family:var(--mono); font-size:12px; letter-spacing:.04em;
+    text-decoration:none; color:#a29c8a;
+    position:relative; padding:4px 0; white-space:nowrap;
+  }
+  .site-nav a:hover{ color:var(--board-amber); }
+  .site-nav a::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:1px;
+    background:var(--board-amber); transform:scaleX(0); transform-origin:left;
+    transition:transform .25s ease;
+  }
+  .site-nav a:hover::after{ transform:scaleX(1); }
+
+  .status-line{
+    display:flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:11px; color:#7c7768;
+  }
+  .status-dot{
+    width:6px; height:6px; border-radius:50%; background:#7fbf8b;
+    box-shadow:0 0 0 0 rgba(127,191,139,.6);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(127,191,139,.55); }
+    70%{ box-shadow:0 0 0 6px rgba(127,191,139,0); }
+    100%{ box-shadow:0 0 0 0 rgba(127,191,139,0); }
+  }
+
+  @media (max-width: 900px){
+    .site-nav{ display:none; }
+  }
+
+  /* ============ ヒーロー ============ */
+  .hero{
+    position:relative; overflow:hidden;
+    padding:96px 0 84px;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(ellipse 900px 500px at 18% -10%, rgba(165,49,42,.13), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(214,162,60,.08), transparent 55%);
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.35fr .9fr; gap:64px; align-items:start;
+    position:relative; z-index:2;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+    color:var(--board-amber); text-transform:uppercase;
+    border:1px solid rgba(214,162,60,.35); padding:6px 12px;
+    margin-bottom:28px;
+  }
+  .eyebrow::before{ content:"//"; opacity:.6; }
+
+  .hero h1{
+    font-family:var(--mincho); font-weight:800;
+    font-size:clamp(34px, 5vw, 54px);
+    line-height:1.25; color:#f4f0e3; margin:0 0 18px;
+    letter-spacing:.01em;
+  }
+  .hero h1 .ruby-en{
+    display:block; font-family:var(--mono); font-weight:500;
+    font-size:14px; letter-spacing:.12em; color:#8c8672;
+    margin-top:14px; text-transform:uppercase;
+  }
+
+  .hero-lead{
+    font-size:15.5px; color:#b9b3a0; max-width:56ch; margin:0 0 30px;
+  }
+  .hero-lead strong{ color:#e7e0cb; font-weight:600; }
+
+  .hero-cta{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:34px; }
+  .btn{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.03em;
+    padding:12px 20px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    border:1px solid transparent; transition:transform .18s ease, border-color .18s ease, background .18s ease;
+  }
+  .btn-primary{ background:var(--stamp-red); color:#f7ece9; }
+  .btn-primary:hover{ background:var(--stamp-red-2); transform:translateY(-1px); }
+  .btn-ghost{ border-color:var(--line); color:#cfcabb; }
+  .btn-ghost:hover{ border-color:var(--board-amber); color:var(--board-amber); }
+
+  .hero-meta{
+    display:flex; gap:22px; flex-wrap:wrap;
+    font-family:var(--mono); font-size:11px; color:#736e5f;
+    border-top:1px solid var(--line-soft); padding-top:16px;
+  }
+  .hero-meta b{ color:#a9a08a; font-weight:600; }
+
+  /* stamp seal */
+  .seal-wrap{ position:relative; display:flex; justify-content:center; padding-top:8px; }
+  .seal{
+    width:230px; height:230px; animation:sealdrift 9s ease-in-out infinite;
+  }
+  @keyframes sealdrift{
+    0%,100%{ transform:rotate(-8deg); }
+    50%{ transform:rotate(-4deg); }
+  }
+  .seal-caption{
+    position:absolute; bottom:-6px; left:50%; transform:translateX(-50%);
+    font-family:var(--mono); font-size:10px; letter-spacing:.12em; color:#736e5f;
+    white-space:nowrap;
+  }
+
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .seal-wrap{ order:-1; padding-bottom:8px; }
+    .seal{ width:150px; height:150px; }
+  }
+
+  /* ============ セクション見出し共通 ============ */
+  .section{ padding:80px 0; border-bottom:1px solid var(--line); }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; margin-bottom:44px; flex-wrap:wrap;
+  }
+  .section-kicker{
+    font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+    color:var(--board-amber); text-transform:uppercase; margin-bottom:10px; display:block;
+  }
+  .section-title{
+    font-family:var(--mincho); font-weight:700; font-size:28px; color:#f1ede0; margin:0;
+  }
+  .section-note{
+    font-family:var(--mono); font-size:11.5px; color:#736e5f; max-width:34ch; text-align:right;
+  }
+  @media (max-width:700px){ .section-note{ text-align:left; } }
+
+  /* ============ 報告書カード ============ */
+  .reports-list{ display:flex; flex-direction:column; gap:36px; }
+
+  .report{
+    position:relative;
+    background:var(--paper);
+    color:var(--ink);
+    box-shadow:0 18px 40px -20px rgba(0,0,0,.65), 0 2px 0 rgba(0,0,0,.2);
+    transform:rotate(var(--tilt, -0.6deg));
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .report:nth-child(even){ --tilt:0.55deg; }
+  .report:hover{ transform:rotate(0deg) translateY(-3px); box-shadow:0 26px 50px -18px rgba(0,0,0,.7); }
+
+  .report-body{ position:relative; padding:30px 32px 24px; z-index:2; }
+
+  .report-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:16px; margin-bottom:18px; flex-wrap:wrap;
+  }
+  .report-id{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    color:var(--ink-soft); border-bottom:1px dashed rgba(36,33,26,.35); padding-bottom:2px;
+  }
+  .badge{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.08em;
+    padding:4px 10px; color:#1c1a15; font-weight:600;
+    text-transform:uppercase; white-space:nowrap;
+  }
+  .badge--caution{ background:var(--badge-caution); }
+  .badge--monitor{ background:var(--badge-monitor); }
+  .badge--classified{ background:var(--badge-classified); color:#f6e9e7; }
+  .badge--safe{ background:var(--badge-safe); }
+
+  .report h3{
+    font-family:var(--mincho); font-weight:700; font-size:20.5px;
+    margin:0 0 12px; color:var(--ink); line-height:1.5;
+  }
+  .report p{ margin:0; font-size:14.5px; color:#3a3527; max-width:70ch; }
+  .report .redacted{
+    display:inline-block; background:var(--ink); color:var(--ink); border-radius:2px;
+    padding:0 4px;
+  }
+
+  .report-footline{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    margin-top:20px; font-family:var(--mono); font-size:11px; color:var(--ink-soft);
+  }
+
+  /* board comment strip, "stapled printout" look */
+  .board-strip{
+    position:relative; background:#c9c2a6; padding:20px 32px 22px;
+    clip-path:polygon(
+      0% 10px, 4% 2px, 8% 10px, 12% 2px, 16% 10px, 20% 2px, 24% 10px, 28% 2px,
+      32% 10px, 36% 2px, 40% 10px, 44% 2px, 48% 10px, 52% 2px, 56% 10px, 60% 2px,
+      64% 10px, 68% 2px, 72% 10px, 76% 2px, 80% 10px, 84% 2px, 88% 10px, 92% 2px,
+      96% 10px, 100% 2px, 100% 100%, 0% 100%
+    );
+  }
+  .board-strip::before{
+    content:"掲示板より"; position:absolute; top:14px; right:32px;
+    font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:#736c53;
+  }
+  .staple{
+    position:absolute; top:-3px; width:26px; height:10px;
+    background:#8a8368; border-radius:1px; transform:rotate(-3deg);
+    box-shadow:0 1px 2px rgba(0,0,0,.35);
+  }
+  .staple.left{ left:38px; }
+  .staple.right{ right:38px; transform:rotate(4deg); }
+
+  .comment{
+    display:flex; gap:10px; font-family:var(--mono); font-size:12.5px;
+    color:#3f3a29; margin-top:10px; align-items:baseline; flex-wrap:wrap;
+  }
+  .comment:first-of-type{ margin-top:2px; }
+  .comment .who{ color:var(--stamp-red-2); font-weight:600; white-space:nowrap; }
+  .comment .stamp-time{ color:#7a7458; font-size:11px; white-space:nowrap; }
+  .comment .txt{ color:#312d20; }
+
+  @media (max-width:640px){
+    .report-body{ padding:24px 20px 20px; }
+    .board-strip{ padding:20px 20px 20px; }
+    .board-strip::before{ right:20px; }
+  }
+
+  /* ============ 掲示板ティッカー ============ */
+  .ticker-section{ background:var(--bg-panel); }
+  .ticker-list{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border:1px solid var(--line); background:var(--bg-panel-2);
+  }
+  .ticker-item{
+    padding:18px 22px; border-bottom:1px solid var(--line-soft); border-right:1px solid var(--line-soft);
+    font-family:var(--mono); font-size:12.5px; color:#b7b19d; display:flex; gap:10px;
+  }
+  .ticker-item:nth-child(2n){ border-right:none; }
+  .ticker-item .arrow{ color:var(--board-amber); flex:none; }
+  .ticker-item .tid{ color:#736e5f; }
+
+  @media (max-width:760px){
+    .ticker-list{ grid-template-columns:1fr; }
+    .ticker-item{ border-right:none; }
+  }
+
+  /* ============ 参加案内 / 帯 ============ */
+  .join-band{
+    display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+    padding:46px 0;
+  }
+  .join-band h2{
+    font-family:var(--mincho); font-weight:700; font-size:22px; color:#f1ede0; margin:0 0 8px;
+  }
+  .join-band p{ margin:0; font-size:13.5px; color:#9a927c; max-width:52ch; }
+
+  /* ============ フッター ============ */
+  footer{ padding:56px 0 40px; }
+  .footer-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px;
+    border-top:1px solid var(--line); padding-top:40px; margin-bottom:34px;
+  }
+  .footer-grid h4{
+    font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--board-amber);
+    text-transform:uppercase; margin:0 0 14px;
+  }
+  .footer-grid p{ font-size:13px; color:#8a8471; margin:0 0 10px; max-width:44ch; }
+  .footer-grid ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; }
+  .footer-grid a{ text-decoration:none; font-size:12.5px; color:#a29c8a; }
+  .footer-grid a:hover{ color:var(--board-amber); }
+
+  .footer-bottom{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:var(--mono); font-size:10.5px; color:#5f5b4d;
+  }
+
+  @media (max-width:760px){
+    .footer-grid{ grid-template-columns:1fr; gap:28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ ヘッダー ============ -->
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg class="brand-seal" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#a5312a" stroke-width="6"/>
+        <circle cx="50" cy="50" r="12" fill="#a5312a"/>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-jp">敵性霊体探究会</span>
+        <span class="brand-en">Enemy Field Research Society</span>
+      </span>
+    </a>
+    <nav class="site-nav">
+      <a href="#reports">報告書一覧</a>
+      <a href="#classify">分類基準</a>
+      <a href="#board">掲示板</a>
+      <a href="#join">参加案内</a>
+      <a href="#en-archive">EN-Archive</a>
+    </nav>
+    <div class="status-line">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span id="clock">JST --:--:-- ／ UTC --:--:--</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ヒーロー ============ -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Fan Archive ／ 有志運営</span>
+      <h1>
+        敵性霊体(エネミー)探究会
+        <span class="ruby-en">Field Archive of an Everyday Threat — Unofficial</span>
+      </h1>
+      <p class="hero-lead">
+        私達の生活のすぐそこに存在する者達、「<strong>エネミー</strong>」。時に敵として、時に隣人として私達は接する。
+        当会は、そうした日常の延長にあるエネミー事案の目撃・討伐・観察記録を報告書形式で集めている非公式アーカイブです。
+        母体は海外の掲示板発祥の観測コミュニティ「<strong>EN-Archive</strong>」で、本サイトはそれを参考にした有志による日本語まとめです。
+        各報告の末尾には検証・補足・雑談を兼ねた掲示板欄があり、更にスレッド作成機能も持ち合わせています。規約を守り、ご自由にお使いください。
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#reports">最新の報告書を見る</a>
+        <a class="btn btn-ghost" href="#join">投稿・参加のルール</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>収録報告数</b> 1,204件</span>
+        <span><b>同時接続</b> <span id="viewers">37</span>名</span>
+        <span><b>最終同期</b> EN-Archive #4471</span>
+        <span><b>発足</b> 20XX年 ／ 海外掲示板より分派</span>
+      </div>
+    </div>
+
+    <div class="seal-wrap">
+      <svg class="seal" viewBox="0 0 220 220" role="img" aria-label="取扱注意スタンプ">
+        <defs>
+          <path id="sealcircle" d="M 110,110 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0" />
+        </defs>
+        <circle cx="110" cy="110" r="100" fill="none" stroke="#a5312a" stroke-width="3" opacity="0.85"/>
+        <circle cx="110" cy="110" r="88" fill="none" stroke="#a5312a" stroke-width="1.4" opacity="0.6"/>
+        <text fill="#a5312a" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="3.2">
+          <textPath href="#sealcircle" startOffset="2%">ENEMY FIELD RESEARCH SOCIETY ・ JP BRANCH ・</textPath>
+        </text>
+        <text x="110" y="102" text-anchor="middle" fill="#a5312a" font-family="Shippori Mincho, serif" font-size="30" font-weight="700">取扱注意</text>
+        <text x="110" y="128" text-anchor="middle" fill="#a5312a" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2">HANDLE WITH CARE</text>
+        <circle cx="110" cy="110" r="60" fill="none" stroke="#a5312a" stroke-width="0.8" opacity="0.4"/>
+      </svg>
+      <span class="seal-caption">※インク滲みは経年によるものではなくスキャン設定です</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 報告書一覧 ============ -->
+<section class="section" id="reports">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">Case Files</span>
+        <h2 class="section-title">最新報告書</h2>
+      </div>
+      <p class="section-note">分類は危険度ではなく「現在の観測状況」を示します。討伐要請の可否は各報告下部を参照。</p>
+    </div>
+
+    <div class="reports-list">
+
+      <!-- report 1 -->
+      <article class="report">
+        <div class="report-body">
+          <div class="report-top">
+            <span class="report-id">FILE EN-0431-JP ／ 登録:2026-08-04</span>
+            <span class="badge badge--caution">要注意 ／ Caution</span>
+          </div>
+          <h3>新宿駅地下通路、反復目撃事案について</h3>
+          <p>
+            深夜0時以降、新宿駅東口地下通路にて全長約3mの人型エネミーが複数回にわたり目撃されている。
+            直接的な接触被害の報告はないが、至近距離を通過した際に強い眩暈を訴える例が3件確認されており、
+            スレ内では該当時間帯の同区画への接近を控えるよう呼びかけが広がっている。目撃情報は引き続き募集中。
+          </p>
+        </div>
+        <div class="board-strip">
+          <span class="staple left"></span><span class="staple right"></span>
+          <div class="comment"><span class="who">名無しのスレ民 ◆Rk4vPt9Xs2</span><span class="stamp-time">08-05 01:12</span><span class="txt">&gt;&gt;431 これ先週も見た、ちょうどシャッター全部降りてる時間帯だったわ</span></div>
+          <div class="comment"><span class="who">名無しのスレ民 ◆e78bGp89Qk</span><span class="stamp-time">08-05 01:20</span><span class="txt">眩暈って多分霊子酔いのやつだよな、詳しい人補足求</span></div>
+        </div>
+      </article>
+
+      <!-- report 2 -->
+      <article class="report">
+        <div class="report-body">
+          <div class="report-top">
+            <span class="report-id">FILE EN-0398-JP ／ 登録:2026-07-29</span>
+            <span class="badge badge--monitor">観測中 ／ Monitoring</span>
+          </div>
+          <h3>河川敷「群体型」個体、季節性行動パターンの記録</h3>
+          <p>
+            多摩川河川敷にて例年8月前後に出現する小型群体エネミー。単体の脅威度は低いとされるが、
+            集合数が一定を超えると周辺の異能干渉範囲が拡大する傾向が過去3年の記録から確認されている。
+            脅威度は低めとスレでは判断されている。今のところ討伐の話は出ていない。
+          </p>
+        </div>
+        <div class="board-strip">
+          <span class="staple left"></span><span class="staple right"></span>
+          <div class="comment"><span class="who">名無しのスレ民 ◆Bn7cWq3Ym8</span><span class="stamp-time">07-29 18:03</span><span class="txt">去年もこの時期に出たな、もう風物詩みたいになってきてる</span></div>
+          <div class="comment"><span class="who">名無しのスレ民 ◆Zx3mKq7T2p</span><span class="stamp-time">07-29 19:51</span><span class="txt">子供が石投げてたけど普通に危ないからやめような…</span></div>
+        </div>
+      </article>
+
+      <!-- report 3 -->
+      <article class="report">
+        <div class="report-body">
+          <div class="report-top">
+            <span class="report-id">FILE EN-0512-JP ／ 登録:2026-08-01</span>
+            <span class="badge badge--classified">機密 ／ Classified</span>
+          </div>
+          <h3>高架下複合施設における発生源特定作業について【一部秘匿】</h3>
+          <p>
+            詳細は一部伏せて掲載。発生源候補地点については有志による継続調査が進行中で、
+            <span class="redacted">████████████</span>との関連についても検証中。
+            調査が落ち着くまでは現地への接近を控えるようスレでは呼びかけられている。
+          </p>
+        </div>
+        <div class="board-strip">
+          <span class="staple left"></span><span class="staple right"></span>
+          <div class="comment"><span class="who">名無しのスレ民 ◆Hv9nWc4Ls6</span><span class="stamp-time">08-01 22:40</span><span class="txt">これ本当に見えないほうがいいやつだ、下手に首突っ込むなよ</span></div>
+          <div class="comment"><span class="who">名無しのスレ民 ◆Mq1kYd6Nv3</span><span class="stamp-time">08-02 00:15</span><span class="txt">上の人たちが調整中らしいから大人しく待とう、な？</span></div>
+        </div>
+      </article>
+
+      <!-- report 4 -->
+      <article class="report">
+        <div class="report-body">
+          <div class="report-top">
+            <span class="report-id">FILE EN-0287-JP ／ 登録:2026-06-14</span>
+            <span class="badge badge--safe">無害 ／ Harmless</span>
+          </div>
+          <h3>「灯りに集まる」小型エネミーの生態観察記録</h3>
+          <p>
+            光源に誘引される性質を持つ小型エネミー。攻撃性は確認されておらず、スレでは継続観察枠として扱われている。
+            討伐の必要はなく、目撃時は写真だけ撮って静かに見守るのが定番になっている。
+          </p>
+        </div>
+        <div class="board-strip">
+          <span class="staple left"></span><span class="staple right"></span>
+          <div class="comment"><span class="who">名無しのスレ民 ◆Jd5tLp6Fz1</span><span class="stamp-time">06-15 20:02</span><span class="txt">うちの近くの公園にもいる、可愛いから餌みたいなことしてる人いた</span></div>
+          <div class="comment"><span class="who">名無しのスレ民 ◆Tf2pXr8Bq1</span><span class="stamp-time">06-15 20:30</span><span class="txt">餌付けはやめとけって上に書いてあるだろ…</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 分類基準 (簡易) ============ -->
+<section class="section" id="classify">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">Classification</span>
+        <h2 class="section-title">分類基準について</h2>
+      </div>
+      <p class="section-note">危険度そのものではなく、スレでの現在の扱われ方を示すゆるい分類です。</p>
+    </div>
+    <div class="hero-meta" style="border:none; padding:0; gap:28px; flex-wrap:wrap;">
+      <span><span class="badge badge--safe" style="margin-right:8px;">無害</span>観察のみ、討伐不要</span>
+      <span><span class="badge badge--monitor" style="margin-right:8px;">観測中</span>定期監視の対象</span>
+      <span><span class="badge badge--caution" style="margin-right:8px;">要注意</span>接近制限あり</span>
+      <span><span class="badge badge--classified" style="margin-right:8px;">機密</span>一部伏せ字・限定公開</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 掲示板ティッカー ============ -->
+<section class="section ticker-section" id="board">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-kicker">From the Board</span>
+        <h2 class="section-title">掲示板より抜粋</h2>
+      </div>
+      <p class="section-note">各報告のコメント欄を横断して拾った書き込みです。資料本編とは切り離してご覧ください。</p>
+    </div>
+    <div class="ticker-list">
+      <div class="ticker-item"><span class="arrow">&gt;&gt;</span><span><span class="tid">0398</span> 群体系って毎年ちょっとずつ範囲広がってない？気のせいか</span></div>
+      <div class="ticker-item"><span class="arrow">&gt;&gt;</span><span>新規です、オフ会的なやつっていつも土曜開催でしたっけ</span></div>
+      <div class="ticker-item"><span class="arrow">&gt;&gt;</span><span>翻訳班マジ乙です、EN版の更新はやすぎてこっちが追いつかない</span></div>
+      <div class="ticker-item"><span class="arrow">&gt;&gt;</span><span>討伐部隊の後日談レポまだですか、あれ結構好きなんですが</span></div>
+      <div class="ticker-item"><span class="arrow">&gt;&gt;</span><span><span class="tid">0512</span> の話、掲示板で聞いてるだけでも普通に怖いんだが</span></div>
+      <div class="ticker-item"><span class="arrow">&gt;&gt;</span><span>霊石相場また上がってるらしいな、討伐報酬換算で見ると露骨</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 参加案内帯 ============ -->
+<section id="join">
+  <div class="wrap join-band">
+    <div>
+      <h2>投稿・書き込みについて</h2>
+      <p>目撃情報の投稿や、既存の記録への検証コメントはどなたでも書き込めます。荒らし対策のため一部スレのみ承認制です。詳しいルールは下記をご確認ください。</p>
+    </div>
+    <a class="btn btn-primary" href="#">投稿ルールを見る</a>
+  </div>
+</section>
+
+<!-- ============ フッター ============ -->
+<footer id="en-archive">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>About</h4>
+        <p>
+          このサイトは、海外の掲示板発祥のまとめサイト「EN-Archive」を参考に、有志がこの街で日常的に発生する
+          エネミー事案を集めて記録している非公式のファンアーカイブです。記録としての体裁は保つよう努めていますが、
+          コメント欄の発言内容についてはあくまで書き込んだ本人の見解であり、正確性は保証しません。
+        </p>
+      </div>
+      <div>
+        <h4>Archive</h4>
+        <ul>
+          <li><a href="#reports">報告書一覧</a></li>
+          <li><a href="#classify">分類基準</a></li>
+          <li><a href="#board">掲示板</a></li>
+          <li><a href="#">検索・タグ一覧</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Society</h4>
+        <ul>
+          <li><a href="#join">投稿ルール</a></li>
+          <li><a href="#">利用上の注意</a></li>
+          <li><a href="#">EN-Archive（海外本部）</a></li>
+          <li><a href="#">管理人に連絡</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>EN-ARCHIVE JP BRANCH ／ EST. 20XX ／ NON-OFFICIAL FIELD RECORD</span>
+      <span>本サイトは架空世界「ここだけ異能のある世界」における創作物です</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ライブ時計: JST / UTC の併記（海外本部との時差を常に見せる）
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function tick(){
+    const now = new Date();
+    const jst = new Date(now.getTime());
+    const jH = pad(now.getHours()), jM = pad(now.getMinutes()), jS = pad(now.getSeconds());
+    const uH = pad(now.getUTCHours()), uM = pad(now.getUTCMinutes()), uS = pad(now.getUTCSeconds());
+    const el = document.getElementById('clock');
+    if(el){ el.textContent = `JST ${jH}:${jM}:${jS} ／ UTC ${uH}:${uM}:${uS}`; }
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // 閲覧者数の緩やかな揺らぎ（掲示板文化らしい生っぽさ）
+  const viewersEl = document.getElementById('viewers');
+  if(viewersEl){
+    setInterval(() => {
+      const base = 37;
+      const drift = Math.floor(Math.random() * 9) - 4;
+      viewersEl.textContent = Math.max(12, base + drift);
+    }, 4000);
+  }
+</script>
+
+</body>
+</html>
