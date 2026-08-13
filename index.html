@@ -301,6 +301,24 @@
   .comment .stamp-time{ color:#7a7458; font-size:11px; white-space:nowrap; }
   .comment .txt{ color:#312d20; }
 
+  /* 検閲済み(クリアランス不足)コメント */
+  .locked-txt{
+    display:inline-flex; align-items:center; gap:12px; flex-wrap:wrap;
+  }
+  .redact-line{ display:inline-flex; gap:3px; align-items:center; }
+  .redact-block{
+    display:inline-block; height:11px; background:var(--ink);
+    border-radius:1px; opacity:.85;
+  }
+  .lock-tag{
+    display:inline-flex; align-items:center; gap:5px;
+    font-family:var(--mono); font-size:9.5px; letter-spacing:.09em;
+    color:var(--stamp-red-2); border:1px solid rgba(165,49,42,.5);
+    padding:2px 8px 2px 6px; text-transform:uppercase;
+    background:rgba(165,49,42,.07); white-space:nowrap;
+  }
+  .lock-tag svg{ width:9px; height:9px; flex:none; }
+
   @media (max-width:640px){
     .report-body{ padding:24px 20px 20px; }
     .board-strip{ padding:20px 20px 20px; }
@@ -509,8 +527,8 @@
         </div>
         <div class="board-strip">
           <span class="staple left"></span><span class="staple right"></span>
-          <div class="comment"><span class="who">名無しのスレ民 ◆Hv9nWc4Ls6</span><span class="stamp-time">08-01 22:40</span><span class="txt">これ本当に見えないほうがいいやつだ、下手に首突っ込むなよ</span></div>
-          <div class="comment"><span class="who">名無しのスレ民 ◆Mq1kYd6Nv3</span><span class="stamp-time">08-02 00:15</span><span class="txt">上の人たちが調整中らしいから大人しく待とう、な？</span></div>
+          <div class="comment"><span class="who">名無しのスレ民 ◆Hv9nWc4Ls6</span><span class="stamp-time">08-01 22:40</span><span class="locked-txt"><span class="redact-line"><span class="redact-block" style="width:26px;"></span><span class="redact-block" style="width:58px;"></span><span class="redact-block" style="width:34px;"></span></span><span class="lock-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>要クリアランスLv.2</span></span></div>
+          <div class="comment"><span class="who">名無しのスレ民 ◆Mq1kYd6Nv3</span><span class="stamp-time">08-02 00:15</span><span class="locked-txt"><span class="redact-line"><span class="redact-block" style="width:44px;"></span><span class="redact-block" style="width:22px;"></span><span class="redact-block" style="width:66px;"></span></span><span class="lock-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>要クリアランスLv.2</span></span></div>
         </div>
       </article>
 
@@ -622,7 +640,7 @@
     </div>
     <div class="footer-bottom">
       <span>EN-ARCHIVE JP BRANCH ／ EST. 20XX ／ NON-OFFICIAL FIELD RECORD</span>
-      <span>本サイトは架空世界「ここだけ異能のある世界」における創作物です</span>
+      <span>このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません</span>
     </div>
   </div>
 </footer>
