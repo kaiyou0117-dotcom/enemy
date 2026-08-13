@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>太平洋海底球体「あまねくものの終端」継続観測記録 ｜ 敵性霊体探究会</title>
+<meta name="description" content="太平洋海底を一年周期で移動し続ける、正体不明の球体に関する継続観測記録。己類:終末装置型。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23A5312A' stroke-width='6'/%3E%3Ccircle cx='50' cy='50' r='14' fill='%23A5312A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Serif+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg-ink:      #131417;
+    --bg-panel:    #1a1c20;
+    --bg-panel-2:  #1f2226;
+    --line:        rgba(255,255,255,0.09);
+    --line-soft:   rgba(255,255,255,0.05);
+    --paper:       #e9e3d1;
+    --paper-shade: #d9d1b6;
+    --ink:         #24211a;
+    --ink-soft:    #524c3d;
+    --stamp-red:   #a5312a;
+    --stamp-red-2: #7f241f;
+    --board-amber: #d6a23c;
+    --board-amber-soft: #a9812f;
+    --badge-caution:  #d6a23c;
+    --badge-monitor:  #8fa888;
+    --badge-classified: #a5312a;
+    --badge-safe:     #6e9c93;
+    --serif-jp: "Noto Serif JP", serif;
+    --mincho:   "Shippori Mincho", serif;
+    --mono:     "JetBrains Mono", monospace;
+    --maxw: 1180px;
+    --maxw-doc: 860px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg-ink); color:#cfcabb; font-family:var(--serif-jp); line-height:1.8; -webkit-font-smoothing:antialiased; }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  ::selection{ background:var(--stamp-red); color:#fff; }
+  @media (prefers-reduced-motion: reduce){ *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+  .wrap-doc{ max-width:var(--maxw-doc); margin:0 auto; padding:0 28px; }
+  .grain{ position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .site-header{ position:sticky; top:0; z-index:40; background:rgba(19,20,23,.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); }
+  .site-header .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; gap:24px; }
+  .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .brand-seal{ width:28px; height:28px; flex:none; }
+  .brand-text{ display:flex; flex-direction:column; line-height:1.15; }
+  .brand-jp{ font-family:var(--mincho); font-weight:700; font-size:16px; color:#f1ede0; letter-spacing:.02em; }
+  .brand-en{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--board-amber); text-transform:uppercase; margin-top:2px; }
+  .site-nav{ display:flex; align-items:center; gap:26px; }
+  .site-nav a{ font-family:var(--mono); font-size:12px; letter-spacing:.04em; text-decoration:none; color:#a29c8a; position:relative; padding:4px 0; white-space:nowrap; }
+  .site-nav a:hover{ color:var(--board-amber); }
+  @media (max-width: 900px){ .site-nav{ display:none; } }
+  .breadcrumb-bar{ border-bottom:1px solid var(--line); background:var(--bg-panel); }
+  .breadcrumb{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-family:var(--mono); font-size:11.5px; color:#736e5f; padding:14px 0; }
+  .breadcrumb a{ text-decoration:none; color:#8c8672; }
+  .breadcrumb a:hover{ color:var(--board-amber); }
+  .breadcrumb .sep{ color:#4d4a3f; }
+  .breadcrumb .current{ color:#c8c2ac; }
+  .doc-hero{ padding:56px 0 40px; border-bottom:1px solid var(--line);
+    background:radial-gradient(ellipse 800px 420px at 15% -20%, rgba(165,49,42,.12), transparent 60%); }
+  .doc-tags{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
+  .badge{ font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; padding:4px 10px; font-weight:600; text-transform:uppercase; white-space:nowrap; }
+  .badge--caution{ background:var(--badge-caution); color:#1c1a15; }
+  .badge--monitor{ background:var(--badge-monitor); color:#1c1a15; }
+  .badge--classified{ background:var(--badge-classified); color:#f6e9e7; }
+  .badge--safe{ background:var(--badge-safe); color:#1c1a15; }
+  .doc-hero h1{ font-family:var(--mincho); font-weight:800; color:#f4f0e3; font-size:clamp(24px, 3.6vw, 34px); line-height:1.45; margin:0 0 14px; }
+  .doc-subtitle{ font-family:var(--mono); font-size:12px; letter-spacing:.06em; color:#8c8672; margin:0 0 26px; text-transform:uppercase; }
+  .doc-metabar{ display:grid; grid-template-columns:repeat(4, 1fr); gap:0; border:1px solid var(--line); background:var(--bg-panel-2); }
+  .doc-metabar div{ padding:14px 18px; border-right:1px solid var(--line-soft); }
+  .doc-metabar div:last-child{ border-right:none; }
+  .doc-metabar .k{ display:block; font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:#736e5f; text-transform:uppercase; margin-bottom:6px; }
+  .doc-metabar .v{ font-size:12.5px; color:#c8c2ac; }
+  @media (max-width:700px){ .doc-metabar{ grid-template-columns:1fr 1fr; } .doc-metabar div{ border-bottom:1px solid var(--line-soft); } }
+  .doc-body-section{ padding:64px 0 0; }
+  .doc{ position:relative; background:var(--paper); color:var(--ink); box-shadow:0 22px 50px -24px rgba(0,0,0,.7), 0 2px 0 rgba(0,0,0,.2); padding:44px 48px 6px; }
+  .doc-lede{ font-family:var(--mincho); font-size:17px; font-weight:600; color:var(--stamp-red-2); border-left:3px solid var(--stamp-red); padding:2px 0 2px 18px; margin:0 0 34px; line-height:1.8; }
+  .doc h2{ font-family:var(--mincho); font-weight:700; font-size:18.5px; color:var(--ink); margin:34px 0 14px; padding-bottom:10px; border-bottom:1px solid rgba(36,33,26,.18); }
+  .doc p{ margin:0 0 16px; font-size:14.5px; color:#37331f; max-width:70ch; }
+  .doc-note{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); border:1px dashed rgba(36,33,26,.3); padding:14px 16px; margin:20px 0 24px; background:rgba(255,255,255,.18); }
+  .doc-note b{ color:var(--stamp-red-2); }
+  .doc-endmark{ text-align:center; padding:30px 0 8px; font-family:var(--mono); font-size:11px; color:var(--ink-soft); letter-spacing:.14em; }
+  .board-strip{ position:relative; background:#c9c2a6; padding:24px 48px 26px; margin-top:8px;
+    clip-path:polygon(0% 10px, 4% 2px, 8% 10px, 12% 2px, 16% 10px, 20% 2px, 24% 10px, 28% 2px, 32% 10px, 36% 2px, 40% 10px, 44% 2px, 48% 10px, 52% 2px, 56% 10px, 60% 2px, 64% 10px, 68% 2px, 72% 10px, 76% 2px, 80% 10px, 84% 2px, 88% 10px, 92% 2px, 96% 10px, 100% 2px, 100% 100%, 0% 100%); }
+  .board-strip::before{ content:"掲示板より"; position:absolute; top:16px; right:48px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:#736c53; }
+  .staple{ position:absolute; top:-3px; width:26px; height:10px; background:#8a8368; border-radius:1px; box-shadow:0 1px 2px rgba(0,0,0,.35); }
+  .staple.left{ left:44px; transform:rotate(-3deg); }
+  .staple.right{ right:44px; transform:rotate(4deg); }
+  .comment{ display:flex; gap:10px; font-family:var(--mono); font-size:12.5px; color:#3f3a29; margin-top:12px; align-items:baseline; flex-wrap:wrap; }
+  .comment:first-of-type{ margin-top:4px; }
+  .comment .who{ color:var(--stamp-red-2); font-weight:600; white-space:nowrap; }
+  .comment .stamp-time{ color:#7a7458; font-size:11px; white-space:nowrap; }
+  .comment .txt{ color:#312d20; }
+  @media (max-width:640px){ .doc{ padding:32px 22px 6px; } .board-strip{ padding:22px 22px 22px; } .board-strip::before{ right:22px; } .staple.left{ left:24px; } .staple.right{ right:24px; } }
+  .back-band{ padding:48px 0 88px; display:flex; gap:14px; flex-wrap:wrap; }
+  .back-link{ display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:12.5px; color:#a29c8a; text-decoration:none; border:1px solid var(--line); padding:11px 18px; transition:border-color .18s ease, color .18s ease; }
+  .back-link:hover{ border-color:var(--board-amber); color:var(--board-amber); }
+  footer{ padding:44px 0 40px; border-top:1px solid var(--line); }
+  .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:var(--mono); font-size:10.5px; color:#5f5b4d; }
+
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg class="brand-seal" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#a5312a" stroke-width="6"/>
+        <circle cx="50" cy="50" r="12" fill="#a5312a"/>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-jp">敵性霊体探究会</span>
+        <span class="brand-en">Enemy Field Research Society</span>
+      </span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html#reports">報告書一覧</a>
+      <a href="index.html#classify">分類基準</a>
+      <a href="index.html#board">掲示板</a>
+      <a href="index.html#join">参加案内</a>
+    </nav>
+  </div>
+</header>
+
+<div class="breadcrumb-bar">
+  <div class="wrap-doc breadcrumb">
+    <a href="index.html">TOP</a><span class="sep">/</span>
+    <a href="report-death-enemy.html">死のエネミー 分析</a><span class="sep">/</span>
+    <span class="current">太平洋海底球体「あまねくものの終端」継続観測記録</span>
+  </div>
+</div>
+
+<section class="doc-hero">
+  <div class="wrap-doc">
+    <div class="doc-tags">
+      <span class="badge badge--classified">機密 ／ Classified</span>
+    </div>
+    <h1>太平洋海底球体「あまねくものの終端」継続観測記録</h1>
+    <p class="doc-subtitle">FILE EN-D06 ／ 己類:終末装置型</p>
+    <div class="doc-metabar">
+      <div><span class="k">正式名称</span><span class="v">終焉実行体(通称:デウス・エクス・マキナ)</span></div>
+      <div><span class="k">推定規模</span><span class="v">不明</span></div>
+      <div><span class="k">観測地点</span><span class="v">太平洋海底</span></div>
+      <div><span class="k">出現時期</span><span class="v">不明</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="doc-body-section">
+  <div class="wrap-doc">
+    <article class="doc">
+
+      <p class="doc-lede">終焉は必要だ。新たなる始まりのためには。</p>
+
+      <h2>概要</h2>
+      <p>太平洋の海底を、極めてゆるやかに移動し続けている球体状の物体。この世界に究極の終焉をもたらし、新たな世界を構築するための装置あるいは機構であるとされているが、詳細は謎に包まれている。</p>
+      <h2>観測記録</h2>
+      <p>現状試みられたあらゆる攻撃がこの対象に通用しておらず、損壊した報告も一件もない。一方で対象側からの攻撃・干渉も一切確認されておらず、接触そのものは可能とされる。表面は金属質だが未知の素材で構成されており、これまで採取には成功していない。</p>
+      <h2>移動パターン</h2>
+      <p>対象の移動ルートは完全に固定されており、正確に8,760時間(約1年)で一周し、同じ経路を繰り返す。この巨大さと頑強さゆえに、ルートを強制的に変更させることも、進行を阻むこともできていない。なぜ移動するのか、なぜそのルートなのか、移動が止まった場合に何が起きるのか——いずれも不明のままである。</p>
+      <h2>関連情報</h2>
+      <p>紀元前より古いとされる一部の資料に、これと酷似した物体を描いたと思われる記述が確認されている。その資料には、この物体が世界を終わらせ、新たな世界を生み出す機構であるとする記述もあるが、対象自体が観測可能な行動を一切示さないため、見た目の類似以外に確たる関連性は見出せていない。信憑性については当会内でも慎重な立場が大勢を占める。</p>
+
+      <p class="doc-endmark">— 報告書ここまで —</p>
+
+      <div class="board-strip">
+        <span class="staple left"></span><span class="staple right"></span>
+        <div class="comment"><span class="who">名無しのスレ民 ◆Zc3kSh8Vp5</span><span class="stamp-time">08-09 03:40</span><span class="txt">1年周期で同じところ通るの逆に律儀すぎて怖い</span></div>
+        <div class="comment"><span class="who">名無しのスレ民 ◆Wq9mTb2Ln6</span><span class="stamp-time">08-09 04:02</span><span class="txt">攻撃効かないし攻撃もしてこないの一番不気味な部類だと思う</span></div>
+        <div class="comment"><span class="who">名無しのスレ民 ◆Ax4pRc7Ye1</span><span class="stamp-time">08-09 04:21</span><span class="txt">これが目覚めたらとかもう考えたくない</span></div>
+      </div>
+    </article>
+
+    <div class="back-band">
+      <a class="back-link" href="report-death-enemy.html">← 「死のエネミー」分析ページへ戻る</a>
+      <a class="back-link" href="index.html">← 報告書一覧へ</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom">
+      <span>EN-ARCHIVE JP BRANCH ／ EST. 20XX ／ NON-OFFICIAL FIELD RECORD</span>
+      <span>本サイトは架空世界「ここだけ異能のある世界」における創作物です</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
