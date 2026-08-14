@@ -208,11 +208,34 @@
   }
   .observer-inner{ max-width:760px; margin:0 auto; padding:0 28px; }
   .observer-label{
-    display:flex; align-items:center; gap:12px; margin-bottom:28px;
+    display:flex; align-items:center; gap:12px; margin-bottom:16px;
     font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; color:var(--board-amber);
     text-transform:uppercase;
   }
   .observer-label::before{ content:""; width:26px; height:1px; background:var(--board-amber-soft); }
+  .observer-label::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+  .dossier-meta{
+    font-family:var(--mono); font-size:11.5px; line-height:1.9; color:#7d7767;
+    max-width:56ch; margin:0 0 34px;
+  }
+  .dossier-meta b{ color:#a89f88; font-weight:600; }
+
+  .dossier-gate{
+    position:relative; border:1px solid rgba(214,162,60,.28); padding:34px 30px;
+    display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center;
+  }
+  .dossier-gate .g-tick{ position:absolute; width:16px; height:16px; border-color:rgba(214,162,60,.5); }
+  .dossier-gate .g-tick.tl{ top:-1px; left:-1px; border-top:1.5px solid; border-left:1.5px solid; }
+  .dossier-gate .g-tick.tr{ top:-1px; right:-1px; border-top:1.5px solid; border-right:1.5px solid; }
+  .dossier-gate .g-tick.bl{ bottom:-1px; left:-1px; border-bottom:1.5px solid; border-left:1.5px solid; }
+  .dossier-gate .g-tick.br{ bottom:-1px; right:-1px; border-bottom:1.5px solid; border-right:1.5px solid; }
+  .dossier-gate .g-tag{
+    font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:#736c56; text-transform:uppercase;
+  }
+  .dossier-gate .g-note{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.03em; color:#5f5a4e; max-width:40ch;
+  }
   .observer-break blockquote{
     margin:0; font-family:var(--mincho); font-style:italic; font-weight:600;
     font-size:clamp(14px,1.3vw,16.5px); line-height:1.9; color:#eee7d4;
@@ -220,12 +243,92 @@
   }
   .observer-break blockquote p{ font-size:inherit; color:inherit; max-width:none; margin:0 0 20px; }
   .observer-sign{
-    display:block; text-align:right; font-family:var(--mono); font-size:11px; color:#847e6f;
-    font-style:normal; margin-top:20px;
+    display:flex; align-items:center; justify-content:flex-end; gap:16px;
+    font-family:var(--mono); font-size:11px; color:#847e6f;
+    font-style:normal; margin-top:34px;
+  }
+  .hanko{ flex:none; width:44px; height:44px; opacity:.88; transform:rotate(-6deg); }
+
+  /* 長文考察の展開ボタン */
+  .dossier-teaser{
+    font-family:var(--mincho); font-style:italic; font-weight:600;
+    font-size:clamp(14px,1.3vw,16.5px); line-height:1.9; color:#eee7d4;
+    border-left:2px solid var(--board-amber-soft); padding-left:28px; margin:0 0 26px;
+  }
+  .dossier-toggle{
+    cursor:pointer; display:inline-flex; align-items:center; gap:14px;
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; color:var(--board-amber);
+    text-transform:uppercase; border:1px solid rgba(214,162,60,.45); padding:14px 22px;
+    background:linear-gradient(180deg, rgba(214,162,60,.05), transparent);
+    transition:background .18s ease, border-color .18s ease;
+  }
+  .dossier-toggle:hover{ background:rgba(214,162,60,.12); border-color:rgba(214,162,60,.75); }
+  .dossier-toggle:disabled{ cursor:default; }
+  .dossier-toggle .seal-icon{ flex:none; width:22px; height:22px; opacity:.9; }
+  .dossier-toggle .spinner{
+    display:none; flex:none; width:15px; height:15px; border-radius:50%;
+    border:2px solid rgba(214,162,60,.25); border-top-color:var(--board-amber);
+    animation:dossierSpin .8s linear infinite;
+  }
+  .dossier-toggle.is-loading .seal-icon{ display:none; }
+  .dossier-toggle.is-loading .spinner{ display:inline-block; }
+  @keyframes dossierSpin{ to{ transform:rotate(360deg); } }
+
+  .dossier-body{ animation:dossierFade .4s ease; }
+  @keyframes dossierFade{ from{ opacity:0; transform:translateY(-6px); } to{ opacity:1; transform:translateY(0); } }
+  .dossier-body h3{
+    position:relative; display:flex; align-items:baseline; gap:16px;
+    margin:56px 0 16px; padding-bottom:12px; border-bottom:1px solid var(--line-soft);
+  }
+  .dossier-body h3:first-child{ margin-top:0; }
+  .dossier-body h3::after{
+    content:"◆"; position:absolute; left:50%; bottom:-5px; transform:translateX(-50%);
+    font-size:8px; color:var(--board-amber-soft); background:var(--bg-panel); padding:0 8px;
+  }
+  .dossier-body h3 .h-num{
+    font-family:var(--mincho); font-weight:800; font-size:38px; line-height:.8;
+    color:rgba(165,49,42,.6); flex:none;
+  }
+  .dossier-body h3 .h-text{
+    font-family:var(--mincho); font-weight:700; font-size:16.5px; color:#efe9d8;
+  }
+  .dossier-body p{
+    font-family:var(--serif-jp); font-style:normal; font-weight:400;
+    font-size:14px; line-height:2.05; color:#b9b09a; margin:0 0 18px; max-width:none;
+  }
+  .dossier-body .lede-first::first-letter{
+    font-family:var(--mincho); font-weight:800; font-size:3em; line-height:.75;
+    float:left; padding:5px 8px 0 0; color:var(--stamp-red-2);
+  }
+  .dossier-body .key-term{
+    color:var(--board-amber); font-weight:600; font-style:normal;
+    border-bottom:1px dotted rgba(214,162,60,.5);
+  }
+  .dossier-body .redact-note{ color:#736c56; font-style:italic; }
+
+  .dossier-pullquote{
+    margin:40px 0; padding:6px 0 6px 30px; border-left:2px solid var(--stamp-red);
+  }
+  .dossier-pullquote p{
+    font-family:var(--serif-jp); font-style:normal; font-weight:400;
+    font-size:14px; line-height:2.05; color:#b9b09a; margin:0;
+  }
+  .dossier-ps{
+    font-family:var(--mono); font-size:9px; color:#403c34; margin:36px 0 0;
+    line-height:1.8; max-width:none;
   }
 
   /* ============ 閲覧制限・戻る ============ */
   .foot-section{ max-width:var(--maxw-doc); margin:0 auto; padding:0 28px; }
+  .related-card{
+    display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+    border:1px solid var(--line); padding:20px 26px; margin-bottom:20px;
+    text-decoration:none; color:inherit; transition:border-color .15s ease, background .15s ease;
+  }
+  .related-card:hover{ border-color:rgba(214,162,60,.5); background:var(--bg-panel); }
+  .related-card .label{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:#5f5a4e; text-transform:uppercase; display:block; margin-bottom:6px; }
+  .related-card .name{ font-family:var(--mincho); font-size:16px; color:#e6e0cd; font-weight:600; }
+  .related-card .arrow{ font-family:var(--mono); font-size:13px; color:var(--board-amber); }
   .doc-note{
     font-family:var(--mono); font-size:11.5px; color:#847e6f; border:1px dashed rgba(255,255,255,.16);
     padding:16px 20px; margin:0 0 40px;
@@ -297,10 +400,10 @@
 <!-- ============ データストリップ ============ -->
 <div class="stat-strip">
   <div class="wrap">
-    <div><span class="k">体長</span><span class="v">1m63cm</span></div>
+    <div><span class="k">体長</span><span class="v">1.63m</span></div>
     <div><span class="k">種別</span><span class="v">II型・半エネミー</span></div>
     <div><span class="k">エネミーレベル</span><span class="v">不明</span></div>
-    <div><span class="k">出典</span><span class="v">敵霊観測隊レポート<br><span class="byline">記録番号：DTH-01163</span></span></div>
+    <div><span class="k">出典</span><span class="v">敵性霊体探究会 副会長<br><span class="byline">██████ 筆</span></span></div>
   </div>
 </div>
 
@@ -310,6 +413,8 @@
     <nav>
       <a href="#overview">概要</a>
       <a href="#ability">異能</a>
+      <a href="#note">考察</a>
+      <a href="#related">関連個体</a>
     </nav>
     <a class="back-mini" href="file-death-kin.html">← 一覧へ</a>
   </aside>
@@ -317,7 +422,11 @@
   <div class="content">
     <section id="overview">
       <h2>概要<span class="en">Overview</span></h2>
-      <p class="lede-drop">近年、ロンドン近辺でその存在が確認されている個体。人類の自然死を愛し、エネミーによる生命への介入や不老不死を強く忌み嫌う、傍観者としての立場を取るとされる。</p>
+      <p class="lede-drop">本個体は、クリフォトを親として生まれた霊体である。</p>
+      <p>神霊土体『敵界』内部の破綻領域のひとつ、地上側に生じた完全封鎖都市にて、稀人と呼ばれる特殊な人類種がクリフォトに籠絡された結果産み落とされた存在——というのが、当会が把握し得た唯一にして最有力の発生経緯である。「種」としてではなく「個体」として生み出されており、他の死の近縁種族と比べても特異な成り立ちを持つ。</p>
+      <p>生理面において、生命活動を停止した状態(学術的な死)を維持しながら生体としての活動を継続するという、極めて異能的といえる特性が確認されている。既知の蘇生術・不死術のいずれとも一致せず、「死んでいることそのものが正常状態である」個体特性であるとみられ、致命傷の概念そのものが当該個体には希薄化しているとする報告もある。</p>
+      <p>高い知性と倫理性を兼ね備えており、大抵の人類種に対しては中立及び友好な反応を示す。死生観に関しては、渇望や崇拝といった死の近縁種に典型的な傾向は"比較的"薄く、人間の自然死を「あるべき死」として尊重し、不自然な死や不老不死を忌避する傾向が確認されている。</p>
+      <p>なお、死の近縁種としての本質が消失したわけではないという事は最も留意すべき事項の一つである。</p>
     </section>
 
     <section id="ability">
@@ -328,8 +437,82 @@
   </div>
 </div>
 
+<!-- ============ 考察ブレイクアウト(展開式) ============ -->
+<section class="observer-break" id="note">
+  <div class="observer-inner">
+    <div class="observer-label">考察 ― 内部資料より</div>
+    <p class="dossier-meta">
+      <b>協会副会長の書き記したメモ。</b>閲覧は自己責任。
+    </p>
+
+    <div class="dossier-gate">
+      <span class="g-tick tl"></span><span class="g-tick tr"></span>
+      <span class="g-tick bl"></span><span class="g-tick br"></span>
+      <span class="g-tag">CASE FILE ／ THN-Ω・封緘</span>
+      <button type="button" class="dossier-toggle" id="dossier-btn">
+        <svg class="seal-icon" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="17" stroke="currentColor" stroke-width="1.6" opacity=".8"/>
+          <circle cx="20" cy="20" r="10" stroke="currentColor" stroke-width="1.2" opacity=".6"/>
+          <path d="M20 3 L20 8 M20 32 L20 37 M3 20 L8 20 M32 20 L37 20" stroke="currentColor" stroke-width="1.4" opacity=".6"/>
+        </svg>
+        <span class="spinner"></span>
+        <span class="btn-label">閲覧する</span>
+      </button>
+      <span class="g-note">※ クリアランス照合のため、認証まで数秒を要します</span>
+    </div>
+
+    <div class="dossier-body" id="dossier-body" hidden>
+
+        <h3><span class="h-num">一</span><span class="h-text">緒言</span></h3>
+        <p class="lede-first">死の近縁種族の研究において、個体発生の経路が単一かつ明確に特定できる例は極めて稀である。多くの近縁種族は「気づけば生態系の一部として存在していた」や「技術の進歩により、やっと人間の観測範囲に入った」というような、後追いの観測にならざるを得ず、発生機序の解明は永遠に手の届かない領域として当会内でも半ば諦められてきた経緯がある。</p>
+        <p>その点において、タナトフィリアという個体は例外的といえる。クリフォトの繁殖機能、稀人という媒介、破綻領域という舞台——発生に至る要素がここまで具体的に揃った近縁種族を、私は他に知らない。</p>
+
+        <h3><span class="h-num">二</span><span class="h-text">発生条件の希少性について</span></h3>
+        <p>古い文献を参照するに、クリフォトの繁殖は「数世紀に一度」とされる。この頻度をどう解釈するかが、まず第一の論点になる。</p>
+        <p>私の見立てでは、これは単なる生物的な発情周期のようなものではない。<br>
+        まずクリフォトの特性上、稀人という希少かつ抽象的な定義で存在する存在に固執して繁殖を狙うとは少し考えづらい。となると、「籠絡されるに足る条件」が存在すると考えるのが自然だろう。<br>
+        「数世紀にも及ぶ繁殖周期」と「クリフォトが繁殖を望む何かの条件」。その二つから選び出されたのが、タナトフィリアの親個体である稀人なのだろう。そう考えれば、タナトフィリアの誕生は偶然の産物というより、非常に狭い条件が揃った末の必然に近いのではなかろうか。</p>
+        <p>もっとも、この仮説には反証材料が乏しい。<br>
+        クリフォトが交配相手をどのような基準で選んでいるのか。……あるいはそもそも選んですらいないのか、という一次情報が、私達には一切もたらされていない。<br>
+        正直なところ、これについてはロンドンの現地調査班にもっと粘ってもらいたいところである。筆者としては、いい加減に会長自身が<span class="redact-note">【※個人を指定して私的な要求を強く求める内容※】</span>というのが本音だ。</p>
+
+        <h3><span class="h-num">三</span><span class="h-text">「死んでいる」という正常状態について</span></h3>
+        <p>生命活動を停止した状態を正常とする個体特性、これは既存の生物学的枠組みでは端的に破綻している。</p>
+        <p>私はこれを「死の克服」ではなく<span class="key-term">「死の内在化」</span>と呼びたい。克服という言葉は、死という敵対的な状態を退けて生を勝ち取るという含意を持つ。だがこの個体は、死を退けていない。死をそのまま自身の基礎状態として組み込んでいる。<br>
+        日本には「毒を以て毒を制す」などという言葉が存在するが、この個体はいわば死を"デフォルトの生態機能"として組み込んでいるのではなかろうか？</p>
+        <p>……毒を以て毒を制すとは言ったが、本個体は「毒」そのものである可能性が大いにある為、この例えは失敗であったと言えるかもしれない。</p>
+
+        <h3><span class="h-num">四</span><span class="h-text">人間的性質の獲得について</span></h3>
+        <p>高い知性、倫理性、人間への友好的態度——これらの性質が、クリフォトという非人間的な死の近縁種を親に持ちながらどこから発現したのかは、実は私の中でも結論が出ていない。</p>
+        <p>ひとつの仮説として、稀人側の血統的影響を挙げることができる。稀人は理性を保ったまま裏ロンドンの濃霧に適応するという、それ自体が既に常人離れした精神的耐性を持つ人類種である。その気質が、"混淆"の過程で色濃く継承された可能性は十分に考えられる。</p>
+        <p>余談としてもう一つ、あえて私の直感に近い仮説も述べておく。クリフォト自身が————霧の外に出ることすら叶わぬあの存在が、人間という生態を模倣した個体を、無意識のうちに"望んだ"のではないかという想像である。<br>
+        学術的な裏付けは皆無であり、同僚には一笑に付されるだろうことは重々承知している。普通に考えればこの事象の原因は「遺伝」や「変異」などの短い単語で説明が出来てしまう。しかし、こういった馬鹿馬鹿しい戯言が、時に真実に迫る手となると、私は信じている。</p>
+
+        <h3><span class="h-num">五</span><span class="h-text">結語</span></h3>
+        <p>以上を総括するに、タナトフィリアという個体は発生場所こそ明瞭でありながら、その内実は依然として当会の理解の外にある。</p>
+        <p>友好的であるという観測事実と危険性が消失したという結論は、決してイコールでは結べない。<br>
+        この点だけは、いかなる仮説を積み重ねようとも揺るがない筆者の結論である。</p>
+        <div class="dossier-pullquote">
+          <p>死の近縁種としての本質を、彼女は今も内側に抱えたまま生きている。<br>
+          それを我々が忘れた時こそが、最も危うい瞬間になるだろう。</p>
+        </div>
+
+        <p class="dossier-ps">───────PS.追加情報が入り次第、この記事は更新する予定である。読者諸君、精々楽しみにしておくことだ。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 閲覧制限・戻る ============ -->
-<div class="foot-section">
+<div class="foot-section" id="related">
+  <a class="related-card" href="kin-klifot.html">
+    <span>
+      <span class="label">関連個体・親</span>
+      <span class="name">クリフォト（逆系樹のエネミー）</span>
+    </span>
+    <span class="arrow">詳細を見る →</span>
+  </a>
+
   <div class="doc-note">
     <b>閲覧制限</b>　本ファイルはクリアランスレベル3以上の登録会員のみ閲覧可能です。コメント・検証機能は当該レベルの資料では無効化されています。
   </div>
@@ -347,5 +530,24 @@
   </div>
 </footer>
 
+<script>
+  (function(){
+    var btn = document.getElementById('dossier-btn');
+    var body = document.getElementById('dossier-body');
+    if(!btn || !body) return;
+    var label = btn.querySelector('.btn-label');
+    var defaultLabel = label.textContent;
+    btn.addEventListener('click', function(){
+      if(btn.classList.contains('is-loading') || btn.disabled) return;
+      btn.classList.add('is-loading');
+      btn.disabled = true;
+      label.textContent = '認証中……';
+      setTimeout(function(){
+        btn.style.display = 'none';
+        body.hidden = false;
+      }, 1300);
+    });
+  })();
+</script>
 </body>
 </html>
