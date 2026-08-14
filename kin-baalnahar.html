@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>バアルナハル（深層のエネミー） ｜ 敵性霊体探究会</title>
+<meta name="description" content="深海や地中で発見される多足の個体。知覚した瞬間から排除が困難になる。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23A5312A' stroke-width='6'/%3E%3Ccircle cx='50' cy='50' r='14' fill='%23A5312A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Serif+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg-ink:      #131417;
+    --bg-panel:    #1a1c20;
+    --bg-panel-2:  #1f2226;
+    --line:        rgba(255,255,255,0.09);
+    --line-soft:   rgba(255,255,255,0.05);
+    --paper:       #e9e3d1;
+    --paper-shade: #d9d1b6;
+    --ink:         #24211a;
+    --ink-soft:    #524c3d;
+    --stamp-red:   #a5312a;
+    --stamp-red-2: #7f241f;
+    --board-amber: #d6a23c;
+    --board-amber-soft: #a9812f;
+    --badge-caution:  #d6a23c;
+    --badge-monitor:  #8fa888;
+    --badge-classified: #a5312a;
+    --badge-safe:     #6e9c93;
+    --serif-jp: "Noto Serif JP", serif;
+    --mincho:   "Shippori Mincho", serif;
+    --mono:     "JetBrains Mono", monospace;
+    --maxw: 1180px;
+    --maxw-doc: 980px;
+    --maxw-doc-sm: 860px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg-ink); color:#cfcabb; font-family:var(--serif-jp); line-height:1.8; -webkit-font-smoothing:antialiased; }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  ::selection{ background:var(--stamp-red); color:#fff; }
+  @media (prefers-reduced-motion: reduce){ *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+  .wrap-doc{ max-width:var(--maxw-doc); margin:0 auto; padding:0 28px; }
+  .wrap-doc-sm{ max-width:var(--maxw-doc-sm); margin:0 auto; padding:0 28px; }
+  .grain{ position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .site-header{ position:sticky; top:0; z-index:40; background:rgba(19,20,23,.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); }
+  .site-header .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; gap:24px; }
+  .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .brand-seal{ width:28px; height:28px; flex:none; }
+  .brand-text{ display:flex; flex-direction:column; line-height:1.15; }
+  .brand-jp{ font-family:var(--mincho); font-weight:700; font-size:16px; color:#f1ede0; letter-spacing:.02em; }
+  .brand-en{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--board-amber); text-transform:uppercase; margin-top:2px; }
+  .site-nav{ display:flex; align-items:center; gap:26px; }
+  .site-nav a{ font-family:var(--mono); font-size:12px; letter-spacing:.04em; text-decoration:none; color:#a29c8a; position:relative; padding:4px 0; white-space:nowrap; }
+  .site-nav a:hover{ color:var(--board-amber); }
+  @media (max-width: 900px){ .site-nav{ display:none; } }
+  .breadcrumb-bar{ border-bottom:1px solid var(--line); background:var(--bg-panel); }
+  .breadcrumb{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-family:var(--mono); font-size:11.5px; color:#736e5f; padding:14px 0; }
+  .breadcrumb a{ text-decoration:none; color:#8c8672; }
+  .breadcrumb a:hover{ color:var(--board-amber); }
+  .breadcrumb .sep{ color:#4d4a3f; }
+  .breadcrumb .current{ color:#c8c2ac; }
+  .doc-hero{ padding:56px 0 40px; border-bottom:1px solid var(--line);
+    background:radial-gradient(ellipse 800px 420px at 15% -20%, rgba(165,49,42,.12), transparent 60%); }
+  .doc-tags{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
+  .badge{ font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; padding:4px 10px; font-weight:600; text-transform:uppercase; white-space:nowrap; }
+  .badge--caution{ background:var(--badge-caution); color:#1c1a15; }
+  .badge--monitor{ background:var(--badge-monitor); color:#1c1a15; }
+  .badge--classified{ background:var(--badge-classified); color:#f6e9e7; }
+  .badge--safe{ background:var(--badge-safe); color:#1c1a15; }
+  .doc-hero h1{ font-family:var(--mincho); font-weight:800; color:#f4f0e3; font-size:clamp(22px, 3.4vw, 32px); line-height:1.45; margin:0 0 14px; }
+  .doc-subtitle{ font-family:var(--mono); font-size:12px; letter-spacing:.06em; color:#8c8672; margin:0 0 26px; text-transform:uppercase; }
+  .doc-metabar{ display:grid; grid-template-columns:repeat(4, 1fr); gap:0; border:1px solid var(--line); background:var(--bg-panel-2); }
+  .doc-metabar div{ padding:14px 18px; border-right:1px solid var(--line-soft); }
+  .doc-metabar div:last-child{ border-right:none; }
+  .doc-metabar .k{ display:block; font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:#736e5f; text-transform:uppercase; margin-bottom:6px; }
+  .doc-metabar .v{ font-size:12.5px; color:#c8c2ac; }
+  @media (max-width:700px){ .doc-metabar{ grid-template-columns:1fr 1fr; } .doc-metabar div{ border-bottom:1px solid var(--line-soft); } }
+  .doc-body-section{ padding:64px 0 0; }
+  .doc{ position:relative; background:var(--paper); color:var(--ink); box-shadow:0 22px 50px -24px rgba(0,0,0,.7), 0 2px 0 rgba(0,0,0,.2); padding:44px 48px 6px; }
+  .doc-lede{ font-family:var(--mincho); font-size:17px; font-weight:600; color:var(--stamp-red-2); border-left:3px solid var(--stamp-red); padding:2px 0 2px 18px; margin:0 0 28px; line-height:1.8; }
+  .doc h2{ font-family:var(--mincho); font-weight:700; font-size:18.5px; color:var(--ink); margin:34px 0 14px; padding-bottom:10px; border-bottom:1px solid rgba(36,33,26,.18); }
+  .doc p{ margin:0 0 16px; font-size:14.5px; color:#37331f; max-width:70ch; }
+  .doc-note{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); border:1px dashed rgba(36,33,26,.3); padding:14px 16px; margin:20px 0 24px; background:rgba(255,255,255,.18); }
+  .doc-note b{ color:var(--stamp-red-2); }
+  .related-note{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); margin:0 0 16px; }
+  .related-note a{ color:var(--stamp-red-2); text-decoration:none; }
+  .related-note a:hover{ text-decoration:underline; }
+
+  /* 図鑑カード(一覧) */
+  .specimen-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:18px 0 8px; }
+  .specimen{
+    display:block; border:1px solid rgba(36,33,26,.2); background:rgba(255,255,255,.16);
+    padding:18px 20px 20px; text-decoration:none; color:inherit;
+    transition:background .15s ease, border-color .15s ease, transform .15s ease;
+  }
+  .specimen:hover{ background:rgba(255,255,255,.32); border-color:rgba(165,49,42,.4); transform:translateY(-2px); }
+  .specimen-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:2px; }
+  .specimen h4{ font-family:var(--mincho); font-weight:700; font-size:15.5px; margin:0; color:var(--ink); line-height:1.4; }
+  .specimen .tag{
+    font-family:var(--mono); font-size:9px; letter-spacing:.06em; color:var(--stamp-red-2);
+    border:1px solid rgba(165,49,42,.4); padding:2px 6px; white-space:nowrap; text-transform:uppercase;
+  }
+  .specimen .official{ font-family:var(--mono); font-size:10.5px; color:var(--ink-soft); display:block; margin:4px 0 8px; }
+  .specimen .spec-line{
+    font-family:var(--mono); font-size:10.5px; color:#6b6350; display:flex; gap:10px; flex-wrap:wrap;
+    border-top:1px dashed rgba(36,33,26,.25); border-bottom:1px dashed rgba(36,33,26,.25);
+    padding:6px 0; margin-bottom:10px;
+  }
+  .specimen p{ font-size:13px; margin:0 0 10px; color:#3a3527; max-width:none; }
+  .specimen .read-more{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--stamp-red-2);
+    display:inline-flex; align-items:center; gap:4px;
+  }
+  @media (max-width:760px){ .specimen-grid{ grid-template-columns:1fr; } }
+  @media (max-width:640px){ .doc{ padding:32px 22px 6px; } }
+
+  .back-band{ padding:48px 0 88px; display:flex; gap:14px; flex-wrap:wrap; }
+  .back-link{ display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:12.5px; color:#a29c8a; text-decoration:none; border:1px solid var(--line); padding:11px 18px; transition:border-color .18s ease, color .18s ease; }
+  .back-link:hover{ border-color:var(--board-amber); color:var(--board-amber); }
+  footer{ padding:44px 0 40px; border-top:1px solid var(--line); }
+  .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:var(--mono); font-size:10.5px; color:#5f5b4d; }
+
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg class="brand-seal" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#a5312a" stroke-width="6"/>
+        <circle cx="50" cy="50" r="12" fill="#a5312a"/>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-jp">敵性霊体探究会</span>
+        <span class="brand-en">Enemy Field Research Society</span>
+      </span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html#reports">報告書一覧</a>
+      <a href="index.html#classify">分類基準</a>
+      <a href="index.html#board">掲示板</a>
+      <a href="index.html#join">参加案内</a>
+    </nav>
+  </div>
+</header>
+
+<div class="breadcrumb-bar">
+  <div class="wrap-doc-sm breadcrumb">
+    <a href="index.html">TOP</a><span class="sep">/</span>
+    <a href="file-death-kin.html">死の近縁種族 図鑑</a><span class="sep">/</span>
+    <span class="current">バアルナハル（深層のエネミー）</span>
+  </div>
+</div>
+
+<section class="doc-hero">
+  <div class="wrap-doc-sm">
+    <div class="doc-tags">
+      <span class="badge badge--caution">要注意 ／ Caution</span>
+      
+    </div>
+    <h1>バアルナハル（深層のエネミー）</h1>
+    <p class="doc-subtitle">正式名称：認識共生型敵性霊体「深層」</p>
+    <div class="doc-metabar">
+      <div><span class="k">種族区分</span><span class="v">近縁種族</span></div>
+      <div><span class="k">正式名称</span><span class="v">認識共生型敵性霊体「深層」</span></div>
+      <div><span class="k">スペック</span><span class="v">体長 4m ／ I型・自然発生 ／ Lv 4</span></div>
+      <div><span class="k">出典分類</span><span class="v">死の近縁種族 図鑑</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="doc-body-section">
+  <div class="wrap-doc-sm">
+    <article class="doc">
+
+      <h2>概要</h2>
+      <p>深海や地中で発見される、蜘蛛のような多足の個体。ある関係者は「実体を持った集団幻覚」と評した。</p>
+      <p>単体の討伐自体は比較的容易だが、後述する特性ゆえに、一度この個体を認識してしまうと完全な排除が非常に困難になる。高い知能を持ち、対話を重ねるほど学習していく。中立、あるいは友好的に見える場合もあるが、エネミーであることに変わりはない。</p>
+
+      <h2>異能「深層心理」</h2>
+      <p>生物の本能、心の中に侵入する認識干渉の能力。最初はテレパシーに似た形で語りかけ、次第に対象の心の中に住み着いていく。</p>
+      <p>やがて幻覚としての存在感を強め、最終的には宿主自身がこの個体として覚醒するという。こうして数を増やしてきた歴史は長く、他の生物と「共生」することでその命を繋いできたとされる。宿した者同士は、深層心理を介して夢や記憶、心の声を共有するとも言われる。</p>
+
+
+      <div class="doc-note" style="margin-top:20px;">
+        <b>閲覧制限</b>　本ファイルはクリアランスレベル3以上の登録会員のみ閲覧可能です。コメント・検証機能は当該レベルの資料では無効化されています。
+      </div>
+    </article>
+
+    <div class="back-band">
+      <a class="back-link" href="file-death-kin.html">← 死の近縁種族 図鑑へ戻る</a>
+      <a class="back-link" href="index.html">← 報告書一覧へ</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom">
+      <span>EN-ARCHIVE JP BRANCH ／ EST. 20XX ／ NON-OFFICIAL FIELD RECORD</span>
+      <span>このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
