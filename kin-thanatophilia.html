@@ -107,47 +107,23 @@
     .hero-image-panel{ aspect-ratio:3 / 5; max-height:74vh; }
   }
 
-  .frame-base{ animation-duration:5s; animation-timing-function:steps(1); animation-iteration-count:infinite; }
-  .frame-base.f1{ animation-name:thanaBase1; }
-  .frame-base.f2{ animation-name:thanaBase2; }
-  .frame-base.f3{ animation-name:thanaBase3; }
-  .frame-base.f4{ animation-name:thanaBase4; }
-  .frame-base.f5{ animation-name:thanaBase5; }
+  .frame-base{ animation:thanaBaseFlicker .5s steps(1) infinite; }
+  .frame-base.f1{ animation-delay:0s; }
+  .frame-base.f2{ animation-delay:.1s; }
+  .frame-base.f3{ animation-delay:.2s; }
+  .frame-base.f4{ animation-delay:.3s; }
+  .frame-base.f5{ animation-delay:.4s; }
   .frame-burst{ animation-duration:5s; animation-timing-function:steps(1); animation-iteration-count:infinite; }
   .frame-burst.g2{ animation-name:thanaGlitch2; }
   .frame-burst.g3{ animation-name:thanaGlitch3; }
   .frame-burst.g4{ animation-name:thanaGlitch4; }
   .frame-burst.g5{ animation-name:thanaGlitch5; }
 
-  /* 0〜4.5秒:5枚を0.3秒ずつ高速サイクル(3周) */
-  @keyframes thanaBase1{
-    0%{ opacity:1; } 5.9%{ opacity:1; } 6%{ opacity:0; } 29.9%{ opacity:0; }
-    30%{ opacity:1; } 35.9%{ opacity:1; } 36%{ opacity:0; } 59.9%{ opacity:0; }
-    60%{ opacity:1; } 65.9%{ opacity:1; } 66%{ opacity:0; } 100%{ opacity:0; }
-  }
-  @keyframes thanaBase2{
-    0%{ opacity:0; } 5.9%{ opacity:0; } 6%{ opacity:1; } 11.9%{ opacity:1; }
-    12%{ opacity:0; } 35.9%{ opacity:0; } 36%{ opacity:1; } 41.9%{ opacity:1; }
-    42%{ opacity:0; } 65.9%{ opacity:0; } 66%{ opacity:1; } 71.9%{ opacity:1; }
-    72%{ opacity:0; } 100%{ opacity:0; }
-  }
-  @keyframes thanaBase3{
-    0%{ opacity:0; } 11.9%{ opacity:0; } 12%{ opacity:1; } 17.9%{ opacity:1; }
-    18%{ opacity:0; } 41.9%{ opacity:0; } 42%{ opacity:1; } 47.9%{ opacity:1; }
-    48%{ opacity:0; } 71.9%{ opacity:0; } 72%{ opacity:1; } 77.9%{ opacity:1; }
-    78%{ opacity:0; } 100%{ opacity:0; }
-  }
-  @keyframes thanaBase4{
-    0%{ opacity:0; } 17.9%{ opacity:0; } 18%{ opacity:1; } 23.9%{ opacity:1; }
-    24%{ opacity:0; } 47.9%{ opacity:0; } 48%{ opacity:1; } 53.9%{ opacity:1; }
-    54%{ opacity:0; } 77.9%{ opacity:0; } 78%{ opacity:1; } 83.9%{ opacity:1; }
-    84%{ opacity:0; } 100%{ opacity:0; }
-  }
-  @keyframes thanaBase5{
-    0%{ opacity:0; } 23.9%{ opacity:0; } 24%{ opacity:1; } 29.9%{ opacity:1; }
-    30%{ opacity:0; } 53.9%{ opacity:0; } 54%{ opacity:1; } 59.9%{ opacity:1; }
-    60%{ opacity:0; } 83.9%{ opacity:0; } 84%{ opacity:1; } 89.9%{ opacity:1; }
-    90%{ opacity:0; } 100%{ opacity:0; }
+  /* 0〜4.5秒:5枚を0.1秒ずつノイズの様に高速切り替え(独立ループ) */
+  @keyframes thanaBaseFlicker{
+    0%{ opacity:1; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
   }
 
   /* 4.5〜5.0秒:破損版4枚が一瞬乱入(既存仕様を維持) */
